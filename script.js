@@ -21,25 +21,17 @@ const successMessage =
 const progressContainer =
     document.querySelector(".progress-container");
 
-
 let currentStep = 0;
 
-
-/* =====================================
-   SHOW STEP
-===================================== */
 
 function showStep(stepNumber) {
 
     formSteps.forEach((step, index) => {
-
         step.classList.toggle(
             "active",
             index === stepNumber
         );
-
     });
-
 
     progressSteps.forEach(
         (progressStep, index) => {
@@ -48,20 +40,16 @@ function showStep(stepNumber) {
                 "active",
                 index <= stepNumber
             );
-
         }
     );
-
 
     const percentage =
         (stepNumber /
             (formSteps.length - 1)) *
         100;
 
-
     progressFill.style.width =
         percentage + "%";
-
 
     document
         .getElementById("client-form")
@@ -72,10 +60,6 @@ function showStep(stepNumber) {
 }
 
 
-/* =====================================
-   VALIDATE CURRENT STEP
-===================================== */
-
 function validateCurrentStep() {
 
     const currentInputs =
@@ -83,7 +67,6 @@ function validateCurrentStep() {
             .querySelectorAll(
                 "input[required], select[required], textarea[required]"
             );
-
 
     for (const input of currentInputs) {
 
@@ -93,17 +76,11 @@ function validateCurrentStep() {
 
             return false;
         }
-
     }
-
 
     return true;
 }
 
-
-/* =====================================
-   NEXT BUTTON
-===================================== */
 
 nextButtons.forEach(button => {
 
@@ -115,7 +92,6 @@ nextButtons.forEach(button => {
                 return;
             }
 
-
             if (
                 currentStep <
                 formSteps.length - 1
@@ -125,16 +101,11 @@ nextButtons.forEach(button => {
 
                 showStep(currentStep);
             }
-
         }
     );
 
 });
 
-
-/* =====================================
-   BACK BUTTON
-===================================== */
 
 backButtons.forEach(button => {
 
@@ -148,16 +119,11 @@ backButtons.forEach(button => {
 
                 showStep(currentStep);
             }
-
         }
     );
 
 });
 
-
-/* =====================================
-   SUBMIT FORM
-===================================== */
 
 form.addEventListener(
     "submit",
@@ -165,21 +131,17 @@ form.addEventListener(
 
         event.preventDefault();
 
-
         if (!validateCurrentStep()) {
             return;
         }
 
-
         const formData =
             new FormData(form);
-
 
         const data =
             Object.fromEntries(
                 formData.entries()
             );
-
 
         const deliverables =
             Array.from(
@@ -191,46 +153,31 @@ form.addEventListener(
                     checkbox.value
             );
 
-
         data.deliverables =
             deliverables;
-
 
         console.log(
             "AS Photography Inquiry:",
             data
         );
 
-
-        /* Hide form */
-
         form.style.display =
             "none";
-
 
         progressContainer.style.display =
             "none";
 
-
-        /* Show success */
-
         successMessage.classList.add(
             "active"
         );
-
 
         document
             .getElementById("client-form")
             .scrollIntoView({
                 behavior: "smooth"
             });
-
     }
 );
 
-
-/* =====================================
-   INITIAL PAGE
-===================================== */
 
 showStep(currentStep);
